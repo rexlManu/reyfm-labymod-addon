@@ -1,0 +1,62 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+        maven { url 'https://jitpack.io' }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
+
+    }
+}
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+version = "1.0"
+group = "de.rexlmanu.reyfm"
+archivesBaseName = "reyfm"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+compileJava.options.encoding = 'UTF-8'
+
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+minecraft {
+    version = "1.8.9-11.15.1.1855"
+    runDir = "run"
+    mappings = "stable_20"
+}
+
+configurations {
+    shade
+    compile.extendsFrom shade
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.16'
+    shade 'com.github.goxr3plus:java-stream-player:10.0.2'
+    shade "org.java-websocket:Java-WebSocket:1.5.1"
+}
+
+reobf {
+    jar {
+        useNotchSrg()
+    }
+}
+
+jar {
+    configurations.shade.each { dep ->
+        from(project.zipTree(dep)){
+            exclude 'META-INF', 'META-INF/**'
+        }
+    }
+}
+

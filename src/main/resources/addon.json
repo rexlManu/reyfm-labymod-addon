@@ -1,0 +1,8 @@
+{
+  "uuid": "%uuid%",
+  "name": "REYFM",
+  "mainClass": "de.rexlmanu.reyfm.ReyFMAddon",
+  "icon": "https://cdn.reyfm.de/img/logo.png",
+  "author": "rexlManu",
+  "description": "Listen to REYFM in minecraft"
+}
